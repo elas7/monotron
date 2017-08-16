@@ -1,0 +1,113 @@
+@import "normalize";
+
+$break-small: 650px;
+$break-mid: 950px;
+
+.page {
+
+  .page-content {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .background-gradient {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background: linear-gradient(to bottom, #4043a4,rgb(193, 51, 110));
+    opacity: 0.9;
+  }
+}
+
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Hack to allow double click events on knobs
+.section-monotron * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dragging * {
+  cursor: crosshair
+}
+
+.monotron {
+  touch-action: pan-y;
+  z-index: 200;
+  width: 50vw;
+  overflow: hidden;
+
+  @media screen and (max-width: 650px) {
+    width: 100vw;
+    position: absolute;
+    overflow: hidden;
+
+    svg {
+      width: 110%;
+      margin-left: -5%;
+    }
+  }
+
+  @media screen and (min-width: 650px) and (max-width: 950px) {
+    width: 75vw;
+  }
+}
+
+g.knob {
+  transform-origin: 50% 50%;
+}
+
+g.switch {
+  transition: 60ms ease;
+}
+
+g.keyboard {
+  .pressed {
+    fill: #fbc562;
+  }
+}
+
+.knob-indicator {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -2px;
+  z-index: 250;
+  will-change: opacity;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  .bar {
+    width: 90%;
+    height: 18px;
+    background: #b14394;
+  }
+
+  .inner-bar {
+    height: 100%;
+    background-color: #ec7c76;
+    will-change: transform;
+    transform-origin: 0;
+  }
+
+  .number {
+    color: white;
+    font-size: 13px;
+    position: absolute;
+  }
+}
