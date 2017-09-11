@@ -3,7 +3,7 @@ Monotron
 
 Reverse engineering of the Monotron. Made with Web Audio API, React and Redux.
 
-Demo: https://test.com (TODO: Update with final domain)
+Demo: https://elas7.github.io/monotron/
 
 Installation
 ------------
