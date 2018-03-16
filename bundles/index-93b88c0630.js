@@ -19573,7 +19573,9 @@ var MonotronAudio = function () {
       this.masterGain.connect(this.lowpassFilter);
       this.lowpassFilter.connect(this.context.destination);
 
-      // Connect oscillator 1, mute it, and start it
+      // Connect oscillator 1, mute it, and start it.
+      // This also connects osc1XmodMix to the master gain, which is the
+      // node that contains the Amplitude Modulation of Ocs2 into Osc1
       this.osc1 = this.context.createOscillator();
       this.osc1Gain = this.context.createGain();
       this.osc1XmodMix = this.context.createGain();
@@ -19601,6 +19603,10 @@ var MonotronAudio = function () {
       // which is the middle of the range of the modulation knob
       this.osc2XmodMix.gain.value = 0.5;
 
+      // Here's the key part. The signal of osc2 is connected to the GAIN of
+      // osc1XmodMix which until that point contained only the signal of Osc 1.
+      // This performs AM synthesis: harmonics are created because Osc 2 is a signal
+      // in the audible range, not an LFO.
       this.osc2.connect(this.osc2XmodMix);
       this.osc2XmodMix.connect(this.osc1XmodMix.gain);
 
