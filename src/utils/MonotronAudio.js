@@ -89,6 +89,11 @@ export default class MonotronAudio {
    * audioData is the Monotron state as returned from the audioData selector
    */
   update(audioData: AudioData) {
+    // AudioContext must be resumed after the document received a user gesture to enable audio playback.
+    if (this.context.state === 'suspended') {
+      this.context.resume();
+    }
+
     // Save new audio data
     this.audioData = audioData;
 
