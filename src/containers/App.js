@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PEP from 'pepjs'; // eslint-disable-line no-unused-vars
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import "../scss/main.scss";
 import App from '../components/App';
 
 /**
