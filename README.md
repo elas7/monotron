@@ -1,6 +1,8 @@
 Monotron
 ========
 
+![Monotron](/img/screenshot.png?raw=true "Monotron")
+
 Reverse engineering of the Monotron. Made with Web Audio API, React and Redux.
 
 Demo: https://elas7.github.io/monotron/
