@@ -1,0 +1,13 @@
+{
+  "main.css": "/monotron/static/css/main.dcf6d207.chunk.css",
+  "main.js": "/monotron/static/js/main.2f424dca.chunk.js",
+  "main.js.map": "/monotron/static/js/main.2f424dca.chunk.js.map",
+  "static/js/1.fb581bdd.chunk.js": "/monotron/static/js/1.fb581bdd.chunk.js",
+  "static/js/1.fb581bdd.chunk.js.map": "/monotron/static/js/1.fb581bdd.chunk.js.map",
+  "runtime~main.js": "/monotron/static/js/runtime~main.169aea5d.js",
+  "runtime~main.js.map": "/monotron/static/js/runtime~main.169aea5d.js.map",
+  "static/css/main.dcf6d207.chunk.css.map": "/monotron/static/css/main.dcf6d207.chunk.css.map",
+  "index.html": "/monotron/index.html",
+  "precache-manifest.f5d4af7699675b5225a73c8dfad8fe1c.js": "/monotron/precache-manifest.f5d4af7699675b5225a73c8dfad8fe1c.js",
+  "service-worker.js": "/monotron/service-worker.js"
+}
