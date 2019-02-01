@@ -7,6 +7,8 @@ Reverse engineering of the Monotron. Made with Web Audio API, React and Redux.
 
 Demo: https://elas7.github.io/monotron/
 
+You can play it with a QWERTY keyboard or with a mouse. It also works on mobile (with multi-touch support). This means that you can play a note and move the knobs at the same time, in any platform.
+
 Installation
 ------------
 
