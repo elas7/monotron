@@ -1,20 +1,20 @@
 // @flow
-import React, { Component } from "react";
+import React from "react";
 import KnobContainer from "../containers/Knob";
+
+type Props = {
+  names: string[]
+};
 
 /**
  * Knobs Component.
  */
-export default class Knobs extends Component {
-  render() {
-    const { names } = this.props;
-
-    return (
-      <g className="knobs">
-        {names.map(name => (
-          <KnobContainer key={name} name={name} />
-        ))}
-      </g>
-    );
-  }
+export default function Knobs({ names }: Props) {
+  return (
+    <g className="knobs">
+      {names.map(name => (
+        <KnobContainer key={name} name={name} />
+      ))}
+    </g>
+  );
 }

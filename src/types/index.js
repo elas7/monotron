@@ -39,6 +39,12 @@ export type KnobsState = {
   dragging: boolean
 };
 
+export type KnobPosition = {
+  top: number,
+  left: number,
+  width: number
+};
+
 export type Toggle = {
   name: string,
   position: number

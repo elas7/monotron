@@ -5,6 +5,7 @@
   "homepage": "https://elas7.github.io/monotron",
   "dependencies": {
     "classnames": "^2.2.6",
+    "flow-bin": "^0.93.0",
     "gh-pages": "^2.0.1",
     "lodash.get": "^4.4.2",
     "lodash.range": "^3.2.0",
@@ -26,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "flow": "flow"
   },
   "eslintConfig": {
     "extends": "react-app"
