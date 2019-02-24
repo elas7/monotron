@@ -1,6 +1,6 @@
 // @flow
-import React, { Component } from 'react';
-import KnobIndicatorContainer from '../containers/KnobIndicator';
+import React, { Component } from "react";
+import KnobIndicatorContainer from "../containers/KnobIndicator";
 
 /**
  * Knob Indicators Component.
@@ -10,18 +10,25 @@ export default class KnobIndicators extends Component {
     super(props);
 
     this.state = {
-      knobPositions: {},
+      knobPositions: {}
     };
   }
 
   componentDidMount() {
     this.updateKnobPositions();
 
-    window.addEventListener('resize', this.updateKnobPositions);
+    // In development, the DOM renders before the styles are loaded.
+    // This makes sure the initial DOM positions are calculated after
+    // all styles are loaded.
+    if (process.env.NODE_ENV !== "production") {
+      window.addEventListener("load", this.updateKnobPositions);
+    }
+
+    window.addEventListener("resize", this.updateKnobPositions);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateKnobPositions);
+    window.removeEventListener("resize", this.updateKnobPositions);
   }
 
   updateKnobPositions = () => {
@@ -36,7 +43,7 @@ export default class KnobIndicators extends Component {
         positions = {
           top: rect.top + window.scrollY,
           left: rect.left,
-          width: rect.right - rect.left,
+          width: rect.right - rect.left
         };
       }
 
@@ -53,7 +60,11 @@ export default class KnobIndicators extends Component {
     return (
       <div className="knob-indicators">
         {knobNames.map(knobName => (
-          <KnobIndicatorContainer knobName={knobName} domPosition={this.state.knobPositions[knobName]} key={knobName} />
+          <KnobIndicatorContainer
+            knobName={knobName}
+            domPosition={this.state.knobPositions[knobName]}
+            key={knobName}
+          />
         ))}
       </div>
     );
