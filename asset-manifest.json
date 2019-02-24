@@ -1,13 +1,13 @@
 {
-  "main.css": "/monotron/static/css/main.dcf6d207.chunk.css",
-  "main.js": "/monotron/static/js/main.2f424dca.chunk.js",
-  "main.js.map": "/monotron/static/js/main.2f424dca.chunk.js.map",
-  "static/js/1.fb581bdd.chunk.js": "/monotron/static/js/1.fb581bdd.chunk.js",
-  "static/js/1.fb581bdd.chunk.js.map": "/monotron/static/js/1.fb581bdd.chunk.js.map",
-  "runtime~main.js": "/monotron/static/js/runtime~main.169aea5d.js",
-  "runtime~main.js.map": "/monotron/static/js/runtime~main.169aea5d.js.map",
-  "static/css/main.dcf6d207.chunk.css.map": "/monotron/static/css/main.dcf6d207.chunk.css.map",
+  "main.css": "/monotron/static/css/main.d15c3299.chunk.css",
+  "main.js": "/monotron/static/js/main.5f69398f.chunk.js",
+  "main.js.map": "/monotron/static/js/main.5f69398f.chunk.js.map",
+  "runtime~main.js": "/monotron/static/js/runtime~main.f41c5128.js",
+  "runtime~main.js.map": "/monotron/static/js/runtime~main.f41c5128.js.map",
+  "static/js/2.93f6c425.chunk.js": "/monotron/static/js/2.93f6c425.chunk.js",
+  "static/js/2.93f6c425.chunk.js.map": "/monotron/static/js/2.93f6c425.chunk.js.map",
   "index.html": "/monotron/index.html",
-  "precache-manifest.f5d4af7699675b5225a73c8dfad8fe1c.js": "/monotron/precache-manifest.f5d4af7699675b5225a73c8dfad8fe1c.js",
-  "service-worker.js": "/monotron/service-worker.js"
+  "precache-manifest.b63b8f75c3ee2e4633fa342321b233bd.js": "/monotron/precache-manifest.b63b8f75c3ee2e4633fa342321b233bd.js",
+  "service-worker.js": "/monotron/service-worker.js",
+  "static/css/main.d15c3299.chunk.css.map": "/monotron/static/css/main.d15c3299.chunk.css.map"
 }
