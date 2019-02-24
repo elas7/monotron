@@ -5,6 +5,7 @@
   "homepage": "https://elas7.github.io/monotron",
   "dependencies": {
     "classnames": "^2.2.6",
+    "gh-pages": "^2.0.1",
     "lodash.get": "^4.4.2",
     "lodash.range": "^3.2.0",
     "node-sass": "^4.11.0",

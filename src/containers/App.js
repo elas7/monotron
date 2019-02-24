@@ -1,10 +1,9 @@
 // @flow
-import React, { Component } from 'react';
-import PEP from 'pepjs'; // eslint-disable-line no-unused-vars
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { Component } from "react";
+import PEP from "pepjs"; // eslint-disable-line no-unused-vars
 
 import "../scss/main.scss";
-import App from '../components/App';
+import App from "../components/App";
 
 /**
  * App container component
@@ -20,10 +19,6 @@ export default class AppContainer extends Component {
   audioContext: AudioContext;
 
   render() {
-    return (
-      <MuiThemeProvider>
-        <App audioContext={this.audioContext} />
-      </MuiThemeProvider>
-    );
+    return <App audioContext={this.audioContext} />;
   }
 }
