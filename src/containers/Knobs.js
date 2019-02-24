@@ -1,9 +1,9 @@
 // @flow
-import { connect } from 'react-redux';
-import Knobs from '../components/Knobs';
+import { connect } from "react-redux";
+import Knobs from "../components/Knobs";
 
 const mapStateToProps = state => ({
-  names: state.knobs.names,
+  names: state.knobs.names
 });
 
 /**

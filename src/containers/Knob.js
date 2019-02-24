@@ -1,6 +1,6 @@
 // @flow
-import { connect } from 'react-redux';
-import Knob from '../components/Knob';
+import { connect } from "react-redux";
+import Knob from "../components/Knob";
 
 const makeMapStateToProps = (initialState, initialProps) => {
   const { name } = initialProps;
@@ -10,7 +10,7 @@ const makeMapStateToProps = (initialState, initialProps) => {
 
     return {
       name: name,
-      position: knob.position,
+      position: knob.position
     };
   };
   return mapStateToProps;

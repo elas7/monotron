@@ -1,6 +1,6 @@
 // @flow
-import { connect } from 'react-redux';
-import Toggle from '../components/Toggle';
+import { connect } from "react-redux";
+import Toggle from "../components/Toggle";
 
 const makeMapStateToProps = (initialState, initialProps) => {
   const { name } = initialProps;
@@ -10,7 +10,7 @@ const makeMapStateToProps = (initialState, initialProps) => {
 
     return {
       name: name,
-      position: toggle.position,
+      position: toggle.position
     };
   };
   return mapStateToProps;

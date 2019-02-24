@@ -1,8 +1,8 @@
 // @flow
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import range from 'lodash.range';
-import classNames from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import range from "lodash.range";
+import classNames from "classnames";
 
 /**
  * Keyboard Key Component.
@@ -10,10 +10,12 @@ import classNames from 'classnames';
 export class KeyboardKey extends PureComponent {
   render() {
     const { number, pressed } = this.props;
-    const className = classNames(`POINTER_TARGET-key-${number}`, number, { pressed });
+    const className = classNames(`POINTER_TARGET-key-${number}`, number, {
+      pressed
+    });
 
     const keys = {
-      '45': (
+      "45": (
         <path
           className={className}
           fill="#F0F0F2"
@@ -22,7 +24,7 @@ export class KeyboardKey extends PureComponent {
           d="M104.8,516.8v-38.5h-1.5c-2.7,0-4.9,2.2-4.9,4.9v46.6c0,2.7,2.2,4.9,4.9,4.9h11.4v-17.9H104.8z"
         />
       ),
-      '46': (
+      "46": (
         <rect
           className={className}
           x="104.8"
@@ -34,7 +36,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '47': (
+      "47": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -43,7 +45,7 @@ export class KeyboardKey extends PureComponent {
           points="123.9,478.3 123.9,516.8 114.7,516.8 114.7,534.7    152.9,534.7 152.9,478.3  "
         />
       ),
-      '48': (
+      "48": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -52,7 +54,7 @@ export class KeyboardKey extends PureComponent {
           points="181.4,516.8 181.4,478.3 152.9,478.3 152.9,534.7    190.9,534.7 190.9,516.8  "
         />
       ),
-      '49': (
+      "49": (
         <rect
           className={className}
           x="181.4"
@@ -64,7 +66,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '50': (
+      "50": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -73,7 +75,7 @@ export class KeyboardKey extends PureComponent {
           points="231.8,516.8 231.8,478.3 200.4,478.3 200.4,516.8    190.9,516.8 190.9,534.7 241.3,534.7 241.3,516.8  "
         />
       ),
-      '51': (
+      "51": (
         <rect
           className={className}
           x="231.8"
@@ -85,7 +87,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '52': (
+      "52": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -94,7 +96,7 @@ export class KeyboardKey extends PureComponent {
           points="250.8,478.3 250.8,516.8 241.3,516.8 241.3,534.7    279.4,534.7 279.4,478.3  "
         />
       ),
-      '53': (
+      "53": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -103,7 +105,7 @@ export class KeyboardKey extends PureComponent {
           points="308,516.8 308,478.3 279.4,478.3 279.4,534.7    317.5,534.7 317.5,516.8  "
         />
       ),
-      '54': (
+      "54": (
         <rect
           className={className}
           x="308"
@@ -115,7 +117,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '55': (
+      "55": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -124,7 +126,7 @@ export class KeyboardKey extends PureComponent {
           points="358.3,516.8 358.3,478.3 327,478.3 327,516.8    317.5,516.8 317.5,534.7 367.9,534.7 367.9,516.8  "
         />
       ),
-      '56': (
+      "56": (
         <rect
           className={className}
           x="358.3"
@@ -136,7 +138,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '57': (
+      "57": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -145,7 +147,7 @@ export class KeyboardKey extends PureComponent {
           points="409.1,516.8 409.1,478.3 377.4,478.3 377.4,516.8    367.9,516.8 367.9,534.7 418.6,534.7 418.6,516.8  "
         />
       ),
-      '58': (
+      "58": (
         <rect
           className={className}
           x="409.1"
@@ -157,7 +159,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '59': (
+      "59": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -166,7 +168,7 @@ export class KeyboardKey extends PureComponent {
           points="428.1,478.3 428.1,516.8 418.6,516.8 418.6,534.7    456.4,534.7 456.4,478.3  "
         />
       ),
-      '60': (
+      "60": (
         <polygon
           className={className}
           fill="#F0F0F2"
@@ -175,7 +177,7 @@ export class KeyboardKey extends PureComponent {
           points="484.8,516.8 484.8,478.3 456.4,478.3 456.4,534.7    494.3,534.7 494.3,516.8  "
         />
       ),
-      '61': (
+      "61": (
         <rect
           className={className}
           x="484.8"
@@ -187,7 +189,7 @@ export class KeyboardKey extends PureComponent {
           height="38.5"
         />
       ),
-      '62': (
+      "62": (
         <path
           className={className}
           fill="#F0F0F2"
@@ -195,7 +197,7 @@ export class KeyboardKey extends PureComponent {
           strokeMiterlimit="10"
           d="M506.2,478.3h-2.5v38.5h-9.5v17.9h12c2.7,0,4.9-2.2,4.9-4.9v-46.6    C511.1,480.5,508.9,478.3,506.2,478.3z"
         />
-      ),
+      )
     };
 
     return keys[number];
@@ -203,7 +205,7 @@ export class KeyboardKey extends PureComponent {
 }
 
 KeyboardKey.propTypes = {
-  number: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired
 };
 
 /**
@@ -220,7 +222,13 @@ export function Keyboard({ keysDown }: { keysDown: Array<number> }) {
 
   return (
     <g className="keyboard">
-      {keyNumbers.map(keyNumber => <KeyboardKey key={keyNumber} number={keyNumber} pressed={isKeyDown(keyNumber)} />)}
+      {keyNumbers.map(keyNumber => (
+        <KeyboardKey
+          key={keyNumber}
+          number={keyNumber}
+          pressed={isKeyDown(keyNumber)}
+        />
+      ))}
     </g>
   );
 }

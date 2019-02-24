@@ -1,8 +1,12 @@
 // @flow
-import { POINTER_DOWN_GLOBAL, POINTER_UP_GLOBAL, POINTER_MOVE_GLOBAL } from '../actions/global';
-import { KEY_DOWN_GLOBAL, KEY_UP_GLOBAL } from '../actions/keyboard';
+import {
+  POINTER_DOWN_GLOBAL,
+  POINTER_UP_GLOBAL,
+  POINTER_MOVE_GLOBAL
+} from "../actions/global";
+import { KEY_DOWN_GLOBAL, KEY_UP_GLOBAL } from "../actions/keyboard";
 
-import type { KeysDown, KeyboardState, PointersById } from '../types';
+import type { KeysDown, KeyboardState, PointersById } from "../types";
 
 /**
  * Initial state of keysDown.
@@ -15,14 +19,14 @@ const keysDownInitialState = {
   byId: {},
 
   // key numbers ordered by most recently pressed
-  ordered: [],
+  ordered: []
 };
 
 /**
  * Initial state
  */
 const initialState = {
-  keysDown: keysDownInitialState,
+  keysDown: keysDownInitialState
 };
 
 /**
@@ -37,7 +41,9 @@ const pressKey = (keysDownState, keyNumber) => {
   const newOrdered = [...keysDownState.ordered];
 
   // If the key is already pressed, new pressedCount is 2
-  const pressedCount = alreadyPressed ? keysDownState.byId[keyNumber].pressedCount + 1 : 1;
+  const pressedCount = alreadyPressed
+    ? keysDownState.byId[keyNumber].pressedCount + 1
+    : 1;
   newById[keyNumber] = { number: keyNumber, pressedCount: pressedCount };
 
   // Add key number at the top of 'ordered' if it wasn't pressed
@@ -76,10 +82,15 @@ const releaseKey = (keysDownState, keyNumber) => {
  * keysDown reducer
  * It Additionally gets the current state.global.pointers.byId and draggingPointers
  */
-const keysDown = (state: KeysDown = initialState.keysDown, action, pointers, draggingPointers) => {
+const keysDown = (
+  state: KeysDown = initialState.keysDown,
+  action,
+  pointers,
+  draggingPointers
+) => {
   switch (action.type) {
     case POINTER_DOWN_GLOBAL: {
-      const isPressingKey = action.payload.target.type === 'key';
+      const isPressingKey = action.payload.target.type === "key";
       if (isPressingKey) {
         const keyNumber = Number(action.payload.target.name);
         return pressKey(state, keyNumber);
@@ -91,7 +102,7 @@ const keysDown = (state: KeysDown = initialState.keysDown, action, pointers, dra
         // release key only if the pointer is not dragging a knob
         const pointerId = action.payload.pointerId;
         const pointer = pointers[pointerId];
-        const wasPressingKey = pointer.target.type === 'key';
+        const wasPressingKey = pointer.target.type === "key";
         const isDraggingKnob = draggingPointers.includes(pointerId);
         if (wasPressingKey && !isDraggingKnob) {
           const keyNumber = Number(pointer.target.name);
@@ -104,8 +115,8 @@ const keysDown = (state: KeysDown = initialState.keysDown, action, pointers, dra
       if (pointers) {
         const pointerId = action.payload.pointerId;
         const pointer = pointers[pointerId];
-        const isPressingKey = action.payload.target.type === 'key';
-        const wasPressingKey = pointer.target.type === 'key';
+        const isPressingKey = action.payload.target.type === "key";
+        const wasPressingKey = pointer.target.type === "key";
         const isNewTarget = action.payload.target.name !== pointer.target.name;
 
         const movingOverKey = isPressingKey && isNewTarget;
@@ -147,7 +158,7 @@ const keyboard = (
   draggingPointers: Array<number>
 ) => ({
   // Pass 'global.pointer' and 'draggingPointers' to keysDown reducer
-  keysDown: keysDown(state.keysDown, action, pointers, draggingPointers),
+  keysDown: keysDown(state.keysDown, action, pointers, draggingPointers)
 });
 
 export default keyboard;

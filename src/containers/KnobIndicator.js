@@ -1,6 +1,6 @@
 // @flow
-import { connect } from 'react-redux';
-import KnobIndicator from '../components/KnobIndicator';
+import { connect } from "react-redux";
+import KnobIndicator from "../components/KnobIndicator";
 
 const mapStateToProps = (state, ownProps) => {
   const knobName = ownProps.knobName;
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     knobPosition: knob.position,
     domPosition: ownProps.domPosition,
-    visible: isIndicatorVisible,
+    visible: isIndicatorVisible
   };
 };
 

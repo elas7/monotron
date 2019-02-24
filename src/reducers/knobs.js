@@ -1,14 +1,24 @@
 // @flow
-import { POINTER_DOWN_GLOBAL, POINTER_UP_GLOBAL, POINTER_MOVE_GLOBAL } from '../actions/global';
-import { rangeMin, rangeMax, rangeCenter, responsivity } from '../lib/knob';
-import { clamp } from '../utils/func';
+import {
+  POINTER_DOWN_GLOBAL,
+  POINTER_UP_GLOBAL,
+  POINTER_MOVE_GLOBAL
+} from "../actions/global";
+import { rangeMin, rangeMax, rangeCenter, responsivity } from "../lib/knob";
+import { clamp } from "../utils/func";
 
-import type { KnobsState, Knobs, PointersById } from '../types';
+import type { KnobsState, Knobs, PointersById } from "../types";
 
 /**
  * Initial state of names.
  */
-const knobNames = ['knobOsc1', 'knobXmod', 'knobOsc2', 'knobCutoff', 'knobPeak'];
+const knobNames = [
+  "knobOsc1",
+  "knobXmod",
+  "knobOsc2",
+  "knobCutoff",
+  "knobPeak"
+];
 
 /**
  * Initial state of byName.
@@ -27,7 +37,7 @@ const byNameInitialState = () => {
       dragging: false,
       pointerId: null,
       pointerYPosition: null,
-      lastDownTime: null,
+      lastDownTime: null
     };
   }
 
@@ -39,7 +49,7 @@ const byNameInitialState = () => {
  */
 const initialState = {
   byName: byNameInitialState(),
-  names: knobNames,
+  names: knobNames
 };
 
 /**
@@ -48,7 +58,7 @@ const initialState = {
 const byName = (state: Knobs = initialState.byName, action) => {
   switch (action.type) {
     case POINTER_DOWN_GLOBAL: {
-      if (action.payload.target.type === 'knob') {
+      if (action.payload.target.type === "knob") {
         const knobName = action.payload.target.name;
         const knob = state[knobName];
 
@@ -67,7 +77,7 @@ const byName = (state: Knobs = initialState.byName, action) => {
           ...knob,
           pointerId: action.payload.pointerId,
           pointerYPosition: action.payload.pointerYPosition,
-          lastDownTime: currentTime,
+          lastDownTime: currentTime
         };
 
         if (isDoubleClick) {
@@ -85,18 +95,26 @@ const byName = (state: Knobs = initialState.byName, action) => {
     case POINTER_MOVE_GLOBAL: {
       // set new data in the dragging knob
       const pointerId = action.payload.pointerId;
-      const draggingKnob = Object.keys(state).find(name => state[name].pointerId === pointerId);
+      const draggingKnob = Object.keys(state).find(
+        name => state[name].pointerId === pointerId
+      );
 
       if (draggingKnob && state[draggingKnob].pointerYPosition != null) {
-        const deltaY = action.payload.pointerYPosition - state[draggingKnob].pointerYPosition;
+        const deltaY =
+          action.payload.pointerYPosition -
+          state[draggingKnob].pointerYPosition;
         // Change knob position based on delta.
         // 'clamp' prevents the knob position from leaving the range
-        const newPosition = clamp(state[draggingKnob].position - deltaY * responsivity, rangeMin, rangeMax);
+        const newPosition = clamp(
+          state[draggingKnob].position - deltaY * responsivity,
+          rangeMin,
+          rangeMax
+        );
         const newState = { ...state };
         newState[draggingKnob] = {
           ...state[draggingKnob],
           position: newPosition,
-          pointerYPosition: action.payload.pointerYPosition,
+          pointerYPosition: action.payload.pointerYPosition
         };
         return newState;
       }
@@ -105,14 +123,16 @@ const byName = (state: Knobs = initialState.byName, action) => {
     case POINTER_UP_GLOBAL: {
       // Reset knob state if a knob is dragging
       const pointerId = action.payload.pointerId;
-      const draggingKnob = Object.keys(state).find(name => state[name].pointerId === pointerId);
+      const draggingKnob = Object.keys(state).find(
+        name => state[name].pointerId === pointerId
+      );
       if (draggingKnob) {
         const newState = { ...state };
         newState[draggingKnob] = {
           ...state[draggingKnob],
           dragging: false,
           pointerId: null,
-          pointerYPosition: null,
+          pointerYPosition: null
         };
         return newState;
       }
@@ -131,10 +151,14 @@ const names = (state = initialState.names) => state;
 /**
  * knobs Reducer
  */
-const knobs = (state: KnobsState = initialState, action: Object, pointers: ?PointersById) => ({
+const knobs = (
+  state: KnobsState = initialState,
+  action: Object,
+  pointers: ?PointersById
+) => ({
   // Pass 'state.mouseYPosition' and 'global.pointer' to byName reducer
   byName: byName(state.byName, action, pointers),
-  names: names(state.names, action),
+  names: names(state.names, action)
 });
 
 export default knobs;

@@ -1,15 +1,19 @@
 // @flow
-import { POINTER_DOWN_GLOBAL, POINTER_UP_GLOBAL, POINTER_MOVE_GLOBAL } from '../actions/global';
+import {
+  POINTER_DOWN_GLOBAL,
+  POINTER_UP_GLOBAL,
+  POINTER_MOVE_GLOBAL
+} from "../actions/global";
 
-import type { PointersById, GlobalState } from '../types';
+import type { PointersById, GlobalState } from "../types";
 
 /**
  * Initial state
  */
 const initialState = {
   pointers: {
-    byId: {},
-  },
+    byId: {}
+  }
 };
 
 /**
@@ -22,7 +26,7 @@ const updatePointer = (pointersByIdState, action) => {
   const pointerId = action.payload.pointerId;
   newState[pointerId] = {
     id: pointerId,
-    target: action.payload.target,
+    target: action.payload.target
   };
 
   return newState;
@@ -43,7 +47,10 @@ const removePointer = (pointersByIdState, pointerId) => {
 /**
  * pointersById Reducer
  */
-const pointersById = (state: PointersById = initialState.pointers.byId, action) => {
+const pointersById = (
+  state: PointersById = initialState.pointers.byId,
+  action
+) => {
   switch (action.type) {
     case POINTER_DOWN_GLOBAL: {
       return updatePointer(state, action);
@@ -65,8 +72,8 @@ const pointersById = (state: PointersById = initialState.pointers.byId, action) 
  */
 const global = (state: GlobalState = initialState, action: Object) => ({
   pointers: {
-    byId: pointersById(state.pointers.byId, action),
-  },
+    byId: pointersById(state.pointers.byId, action)
+  }
 });
 
 export default global;

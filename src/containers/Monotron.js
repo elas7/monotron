@@ -1,14 +1,18 @@
 // @flow
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { qwertytoMidi } from '../lib/keyboard';
-import { pointerDownGlobal, pointerUpGlobal, pointerMoveGlobal } from '../actions/global';
-import { keyUpGlobal, keyDownGlobal } from '../actions/keyboard';
-import { getAudioData, isDragging } from '../selectors';
-import Monotron from '../components/Monotron';
-import MonotronAudio from '../utils/MonotronAudio';
-import { getPointerPosition } from '../utils/func';
+import { qwertytoMidi } from "../lib/keyboard";
+import {
+  pointerDownGlobal,
+  pointerUpGlobal,
+  pointerMoveGlobal
+} from "../actions/global";
+import { keyUpGlobal, keyDownGlobal } from "../actions/keyboard";
+import { getAudioData, isDragging } from "../selectors";
+import Monotron from "../components/Monotron";
+import MonotronAudio from "../utils/MonotronAudio";
+import { getPointerPosition } from "../utils/func";
 
 /**
  * Monotron container component
@@ -28,18 +32,23 @@ class MonotronContainer extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('pointerdown', this.pointerDownHandler);
-    window.addEventListener('pointerup', this.pointerUpHandler);
-    window.addEventListener('pointermove', this.pointerMoveHandler);
-    window.addEventListener('touchmove', this.touchMoveHandler, { passive: false });
-    window.addEventListener('pointercancel', this.pointerUpHandler);
+    window.addEventListener("pointerdown", this.pointerDownHandler);
+    window.addEventListener("pointerup", this.pointerUpHandler);
+    window.addEventListener("pointermove", this.pointerMoveHandler);
+    window.addEventListener("touchmove", this.touchMoveHandler, {
+      passive: false
+    });
+    window.addEventListener("pointercancel", this.pointerUpHandler);
 
     // Track QWERTY events
-    window.addEventListener('keydown', this.keyDownHandler);
-    window.addEventListener('keyup', this.keyUpHandler);
+    window.addEventListener("keydown", this.keyDownHandler);
+    window.addEventListener("keyup", this.keyUpHandler);
 
     // Initialize monotron audio generator
-    this.audioGenerator = new MonotronAudio(this.props.audioContext, this.props.audioData);
+    this.audioGenerator = new MonotronAudio(
+      this.props.audioContext,
+      this.props.audioData
+    );
   }
 
   componentDidUpdate() {
@@ -49,30 +58,32 @@ class MonotronContainer extends Component {
 
   componentWillUnmount() {
     // Remove all handlers
-    window.removeEventListener('pointerdown', this.pointerDownHandler);
-    window.removeEventListener('pointerup', this.pointerUpHandler);
-    window.removeEventListener('pointermove', this.pointerMoveHandler);
-    window.removeEventListener('touchmove', this.touchMoveHandler);
-    window.removeEventListener('pointercancel', this.pointerUpHandler);
+    window.removeEventListener("pointerdown", this.pointerDownHandler);
+    window.removeEventListener("pointerup", this.pointerUpHandler);
+    window.removeEventListener("pointermove", this.pointerMoveHandler);
+    window.removeEventListener("touchmove", this.touchMoveHandler);
+    window.removeEventListener("pointercancel", this.pointerUpHandler);
 
-    window.removeEventListener('keydown', this.keyDownHandler);
-    window.removeEventListener('keyup', this.keyUpHandler);
+    window.removeEventListener("keydown", this.keyDownHandler);
+    window.removeEventListener("keyup", this.keyUpHandler);
   }
 
   getPointerEventTarget = (event: Event) => {
     const target = {
       type: null,
-      name: null,
+      name: null
     };
 
     const position = getPointerPosition(event);
     const targetElement = document.elementFromPoint(position.x, position.y);
 
     // get closest parent element (or the element itself) that is a pointer target, if any.
-    const pointerTargetElement: ?Element = targetElement.closest('[class^="POINTER_TARGET"]');
+    const pointerTargetElement: ?Element = targetElement.closest(
+      '[class^="POINTER_TARGET"]'
+    );
 
     if (pointerTargetElement) {
-      const targetClass = pointerTargetElement.getAttribute('class');
+      const targetClass = pointerTargetElement.getAttribute("class");
 
       if (targetClass) {
         // DOM elements that are pointer targets have the class POINTER_TARGET-{type}-{name}
@@ -129,7 +140,7 @@ class MonotronContainer extends Component {
   pointerMoveHandler = event => {
     // ignore event if the pointer is not down
     const pointerId = event.pointerId;
-    const isMouseUp = event.pointerType === 'mouse' && event.buttons === 0;
+    const isMouseUp = event.pointerType === "mouse" && event.buttons === 0;
     const isPointerDown = !isMouseUp;
     if (isPointerDown) {
       // store latest pointer move for the pointer id
@@ -185,7 +196,7 @@ class MonotronContainer extends Component {
 const mapStateToProps = (state, ownProps) => ({
   dragging: isDragging(state),
   audioData: getAudioData(state),
-  audioContext: ownProps.audioContext,
+  audioContext: ownProps.audioContext
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -203,7 +214,10 @@ const mapDispatchToProps = dispatch => ({
   },
   onKeyUpGlobal: midiValue => {
     dispatch(keyUpGlobal(midiValue));
-  },
+  }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MonotronContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MonotronContainer);

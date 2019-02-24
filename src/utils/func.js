@@ -6,17 +6,23 @@
 export const getPointerPosition = function(event: any) {
   return {
     x: event.clientX,
-    y: event.clientY,
+    y: event.clientY
   };
 };
 
 /**
  * Convert a value in an old range to the corresponding value in a new range
  */
-export const convertRange = function(oldMin: number, oldMax: number, newMin: number, newMax: number, oldValue: number) {
+export const convertRange = function(
+  oldMin: number,
+  oldMax: number,
+  newMin: number,
+  newMax: number,
+  oldValue: number
+) {
   const oldRange = oldMax - oldMin;
   const newRange = newMax - newMin;
-  return (oldValue - oldMin) * newRange / oldRange + newMin;
+  return ((oldValue - oldMin) * newRange) / oldRange + newMin;
 };
 
 /**

@@ -1,9 +1,9 @@
 // @flow
-import { connect } from 'react-redux';
-import { Keyboard } from '../components/Keyboard';
+import { connect } from "react-redux";
+import { Keyboard } from "../components/Keyboard";
 
 const mapStateToProps = state => ({
-  keysDown: state.keyboard.keysDown.ordered,
+  keysDown: state.keyboard.keysDown.ordered
 });
 
 /**

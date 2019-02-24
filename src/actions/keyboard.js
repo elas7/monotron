@@ -3,9 +3,9 @@
  * Keyboard action types
  */
 // Emitted when doing QWERTY key down anywhere
-export const KEY_DOWN_GLOBAL = 'KEY_DOWN_GLOBAL';
+export const KEY_DOWN_GLOBAL = "KEY_DOWN_GLOBAL";
 // Emitted when doing QWERTY key up anywhere
-export const KEY_UP_GLOBAL = 'KEY_UP_GLOBAL';
+export const KEY_UP_GLOBAL = "KEY_UP_GLOBAL";
 
 /**
  * KEY_DOWN_GLOBAL Action creator.
@@ -14,8 +14,8 @@ export const KEY_UP_GLOBAL = 'KEY_UP_GLOBAL';
 export const keyDownGlobal = (number: number) => ({
   type: KEY_DOWN_GLOBAL,
   payload: {
-    number,
-  },
+    number
+  }
 });
 
 /**
@@ -25,6 +25,6 @@ export const keyDownGlobal = (number: number) => ({
 export const keyUpGlobal = (number: number) => ({
   type: KEY_UP_GLOBAL,
   payload: {
-    number,
-  },
+    number
+  }
 });
