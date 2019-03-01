@@ -3,49 +3,32 @@ import React from "react";
 import classNames from "classnames";
 
 import { convertRange } from "../utils/func";
-import { rangeMax, rangeMin, angleMax, angleMin } from "../lib/knob";
+import { rangeMax, rangeMin, angleMax, angleMin, knobNames } from "../lib/knob";
 
 type Props = {
   name: string,
   position: number
 };
 
-/**
- * Knob Component.
- */
-export default function Knob({ name, position }: Props) {
-  const targetClassName = `POINTER_TARGET-knob-${name}`;
-  const knobClassName = classNames(`knob-${name}`, "knob", name);
-
-  // Get the amount in radians that the knob needs to be moved from the center
-  // so that the position is the correct one.
-  const dialAngle = convertRange(
-    rangeMin,
-    rangeMax,
-    angleMin,
-    angleMax,
-    position
-  );
-
-  const style = {
-    transform: `rotate(${dialAngle}rad)`
-  };
-
-  const knobs = {
-    knobOsc1: (
-      <g className={targetClassName}>
-        {/* transparent rect covering the knob area */}
+const knobStaticComponents = {
+  // 'outside' is the transparent rect covering the knob area
+  // 'inside' is the actual rotating knob
+  knobOsc1: {
+    outside: React.memo(function Outside() {
+      return (
         <rect
-          x="150"
+          x="318"
           y="350"
           fill="#2C2C2E"
           width="60"
           height="90"
           fillOpacity="0"
         />
-
-        {/* rotating knob */}
-        <g className={knobClassName} style={style}>
+      );
+    }),
+    inside: React.memo(function Inside() {
+      return (
+        <>
           <circle
             fill="#FFFFFF"
             stroke="#414042"
@@ -70,12 +53,13 @@ export default function Knob({ name, position }: Props) {
             strokeMiterlimit="10"
             d="M182.6,379.8c-0.7-0.1-1.6-0.2-2.3-0.2s-1.6,0.1-2.3,0.2v8h4.8v-8H182.6z"
           />
-        </g>
-      </g>
-    ),
-    knobOsc2: (
-      <g className={targetClassName}>
-        {/* transparent rect covering the knob area */}
+        </>
+      );
+    })
+  },
+  knobOsc2: {
+    outside: React.memo(function Outside() {
+      return (
         <rect
           x="318"
           y="350"
@@ -84,9 +68,11 @@ export default function Knob({ name, position }: Props) {
           height="90"
           fillOpacity="0"
         />
-
-        {/* rotating knob */}
-        <g className={knobClassName} style={style}>
+      );
+    }),
+    inside: React.memo(function Inside() {
+      return (
+        <>
           <circle
             fill="#FFFFFF"
             stroke="#414042"
@@ -104,12 +90,13 @@ export default function Knob({ name, position }: Props) {
             strokeMiterlimit="10"
             d="M349.9,379.8c-0.7-0.1-1.6-0.2-2.3-0.2s-1.6,0.1-2.3,0.2v8h4.8v-8H349.9z"
           />
-        </g>
-      </g>
-    ),
-    knobCutoff: (
-      <g className={targetClassName}>
-        {/* transparent rect covering the knob area */}
+        </>
+      );
+    })
+  },
+  knobCutoff: {
+    outside: React.memo(function Outside() {
+      return (
         <rect
           x="402"
           y="350"
@@ -118,9 +105,11 @@ export default function Knob({ name, position }: Props) {
           height="90"
           fillOpacity="0"
         />
-
-        {/* rotating knob */}
-        <g className={knobClassName} style={style}>
+      );
+    }),
+    inside: React.memo(function Inside() {
+      return (
+        <>
           <circle
             fill="#FFFFFF"
             stroke="#414042"
@@ -145,12 +134,13 @@ export default function Knob({ name, position }: Props) {
             strokeMiterlimit="10"
             d="M433.9,379.8c-0.7-0.1-1.6-0.2-2.3-0.2s-1.6,0.1-2.3,0.2v8h4.8v-8H433.9z"
           />
-        </g>
-      </g>
-    ),
-    knobPeak: (
-      <g className={targetClassName}>
-        {/* transparent rect covering the knob area */}
+        </>
+      );
+    })
+  },
+  knobPeak: {
+    outside: React.memo(function Outside() {
+      return (
         <rect
           x="485"
           y="350"
@@ -159,9 +149,11 @@ export default function Knob({ name, position }: Props) {
           height="90"
           fillOpacity="0"
         />
-
-        {/* rotating knob */}
-        <g className={knobClassName} style={style}>
+      );
+    }),
+    inside: React.memo(function Inside() {
+      return (
+        <>
           <circle
             fill="#FFFFFF"
             stroke="#414042"
@@ -186,12 +178,13 @@ export default function Knob({ name, position }: Props) {
             strokeMiterlimit="10"
             d="M516.6,379.8c-0.7-0.1-1.6-0.2-2.3-0.2s-1.6,0.1-2.3,0.2v8h4.8v-8H516.6z"
           />
-        </g>
-      </g>
-    ),
-    knobXmod: (
-      <g className={targetClassName}>
-        {/* transparent rect covering the knob area */}
+        </>
+      );
+    })
+  },
+  knobXmod: {
+    outside: React.memo(function Outside() {
+      return (
         <rect
           x="234"
           y="350"
@@ -200,9 +193,11 @@ export default function Knob({ name, position }: Props) {
           height="90"
           fillOpacity="0"
         />
-
-        {/* rotating knob */}
-        <g className={knobClassName} style={style}>
+      );
+    }),
+    inside: React.memo(function Inside() {
+      return (
+        <>
           <circle
             fill="#FFFFFF"
             stroke="#414042"
@@ -227,11 +222,59 @@ export default function Knob({ name, position }: Props) {
             strokeMiterlimit="10"
             d="M266.4,379.8c-0.7-0.1-1.6-0.2-2.3-0.2s-1.6,0.1-2.3,0.2v8h4.8v-8H266.4z"
           />
-          b{" "}
-        </g>
-      </g>
-    )
-  };
+        </>
+      );
+    })
+  }
+};
 
-  return knobs[name];
+const getKnobComponents = () => {
+  const getTargetClassName = name => `POINTER_TARGET-knob-${name}`;
+  const getKnobClassName = name => classNames(`knob-${name}`, "knob", name);
+  const getStyle = dialAngle => ({
+    transform: `rotate(${dialAngle}rad)`
+  });
+
+  return knobNames.reduce((components, knobName) => {
+    const staticComponents = knobStaticComponents[knobName];
+    const Outside = staticComponents.outside;
+    const Inside = staticComponents.inside;
+
+    const targetClassName = getTargetClassName(knobName);
+    const knobClassName = getKnobClassName(knobName);
+
+    components[knobName] = ({ dialAngle }) => {
+      return (
+        <g className={targetClassName}>
+          <Outside />
+          <g className={knobClassName} style={getStyle(dialAngle)}>
+            <Inside />
+          </g>
+        </g>
+      );
+    };
+
+    return components;
+  }, {});
+};
+
+const knobComponents = getKnobComponents();
+
+/**
+ * Knob Component.
+ */
+export default function Knob({ name, position }: Props) {
+  // Get the amount in radians that the knob needs to be moved from the center
+  // so that the position is the correct one.
+  const dialAngle = convertRange(
+    rangeMin,
+    rangeMax,
+    angleMin,
+    angleMax,
+    position
+  );
+
+  const KnobComponent = knobComponents[name];
+
+  return <KnobComponent dialAngle={dialAngle} />;
 }

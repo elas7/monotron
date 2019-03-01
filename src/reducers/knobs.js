@@ -4,21 +4,10 @@ import {
   POINTER_UP_GLOBAL,
   POINTER_MOVE_GLOBAL
 } from "../actions/global";
-import { rangeMin, rangeMax, rangeCenter, responsivity } from "../lib/knob";
+import { rangeMin, rangeMax, rangeCenter, responsivity, knobNames } from "../lib/knob";
 import { clamp } from "../utils/func";
 
 import type { KnobsState, Knobs, PointersById } from "../types";
-
-/**
- * Initial state of names.
- */
-const knobNames = [
-  "knobOsc1",
-  "knobXmod",
-  "knobOsc2",
-  "knobCutoff",
-  "knobPeak"
-];
 
 /**
  * Initial state of byName.

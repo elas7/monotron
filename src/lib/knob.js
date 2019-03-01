@@ -11,3 +11,11 @@ export const angleMax = (+5 / 6) * Math.PI;
 
 // Knob responsivity when dragging
 export const responsivity = 0.009;
+
+export const knobNames = [
+  "knobOsc1",
+  "knobXmod",
+  "knobOsc2",
+  "knobCutoff",
+  "knobPeak"
+];

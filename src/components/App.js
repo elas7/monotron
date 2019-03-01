@@ -3,10 +3,12 @@ import React from "react";
 import MonotronContainer from "../containers/Monotron";
 import GithubCorner from "react-github-corner";
 
+type Props = { audioContext: AudioContext };
+
 /**
  * App Component.
  */
-export default function App({ audioContext }: { audioContext: AudioContext }) {
+export default function App({ audioContext }: Props) {
   return (
     <div className="page">
       <div className="background-gradient" />
