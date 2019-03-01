@@ -17,7 +17,7 @@ const knobStaticComponents = {
     outside: React.memo(function Outside() {
       return (
         <rect
-          x="318"
+          x="150"
           y="350"
           fill="#2C2C2E"
           width="60"
