@@ -228,14 +228,14 @@ const knobStaticComponents = {
   }
 };
 
-const getKnobComponents = () => {
+const getKnobFactories = () => {
   const getTargetClassName = name => `POINTER_TARGET-knob-${name}`;
   const getKnobClassName = name => classNames(`knob-${name}`, "knob", name);
   const getStyle = dialAngle => ({
     transform: `rotate(${dialAngle}rad)`
   });
 
-  return knobNames.reduce((components, knobName) => {
+  return knobNames.reduce((factories, knobName) => {
     const staticComponents = knobStaticComponents[knobName];
     const Outside = staticComponents.outside;
     const Inside = staticComponents.inside;
@@ -243,7 +243,7 @@ const getKnobComponents = () => {
     const targetClassName = getTargetClassName(knobName);
     const knobClassName = getKnobClassName(knobName);
 
-    components[knobName] = ({ dialAngle }) => {
+    factories[knobName] = dialAngle => {
       return (
         <g className={targetClassName}>
           <Outside />
@@ -254,11 +254,11 @@ const getKnobComponents = () => {
       );
     };
 
-    return components;
+    return factories;
   }, {});
 };
 
-const knobComponents = getKnobComponents();
+const knobFactories = getKnobFactories();
 
 /**
  * Knob Component.
@@ -274,7 +274,6 @@ export default function Knob({ name, position }: Props) {
     position
   );
 
-  const KnobComponent = knobComponents[name];
-
-  return <KnobComponent dialAngle={dialAngle} />;
+  const KnobFactory = knobFactories[name];
+  return KnobFactory(dialAngle);
 }

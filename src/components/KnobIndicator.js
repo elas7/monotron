@@ -1,5 +1,5 @@
 // @flow
-import React, { useRef } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import type { KnobPosition } from "../types";
@@ -10,6 +10,9 @@ type Props = {
   visible: boolean
 };
 
+const layer = document.createElement("div");
+document.body.appendChild(layer);
+
 /**
  * Knob Indicator Component.
  */
@@ -18,12 +21,6 @@ export default function KnobIndicator({
   domPosition,
   visible
 }: Props) {
-  const layer = useRef(null);
-  if (!layer.current) {
-    layer.current = document.createElement("div");
-    document.body.appendChild(layer.current);
-  }
-
   const positionPercentage = Math.floor(knobPosition * 100);
   const style = domPosition || {};
   const innerBarStyle = {
@@ -41,6 +38,6 @@ export default function KnobIndicator({
       </div>
       <div className="number">{positionPercentage}</div>
     </div>,
-    layer.current
+    layer
   );
 }
