@@ -44,16 +44,16 @@ class MonotronContainer extends Component {
     window.addEventListener("keydown", this.keyDownHandler);
     window.addEventListener("keyup", this.keyUpHandler);
 
-    // Initialize monotron audio generator
-    this.audioGenerator = new MonotronAudio(
-      this.props.audioContext,
-      this.props.audioData
-    );
+    this.initAudioGenerator();
   }
 
   componentDidUpdate() {
+    this.initAudioGenerator();
+
     // Send audio data to the monotron audio generator
-    this.audioGenerator.update(this.props.audioData);
+    if (this.audioGenerator) {
+      this.audioGenerator.update(this.props.audioData);
+    }
   }
 
   componentWillUnmount() {
@@ -66,6 +66,20 @@ class MonotronContainer extends Component {
 
     window.removeEventListener("keydown", this.keyDownHandler);
     window.removeEventListener("keyup", this.keyUpHandler);
+  }
+
+  initAudioGenerator() {
+    if (this.audioGenerator) {
+      return;
+    }
+
+    // Initialize monotron audio generator
+    if (this.props.audioContext) {
+      this.audioGenerator = new MonotronAudio(
+        this.props.audioContext,
+        this.props.audioData
+      );
+    }
   }
 
   getPointerEventTarget = (event: Event) => {

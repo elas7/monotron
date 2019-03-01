@@ -6,7 +6,7 @@ import { createStore, compose } from "redux";
 
 import * as serviceWorker from "./serviceWorker";
 import monotronApp from "./reducers";
-import AppContainer from "./containers/App";
+import App from "./containers/App";
 
 // Create Redux store
 const store = createStore(
@@ -17,7 +17,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <AppContainer />
+      <App />
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")
