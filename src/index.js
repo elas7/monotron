@@ -16,7 +16,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContainer />
+    <React.StrictMode>
+      <AppContainer />
+    </React.StrictMode>
   </Provider>,
   document.getElementById("root")
 );
