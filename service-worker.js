@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/monotron/precache-manifest.38c4c89109fa95b9c83128b3c6ad7407.js"
+  "/monotron/precache-manifest.a5f638d99a33e7f00c58eff9e752d3f0.js"
 );
 
 workbox.clientsClaim();
