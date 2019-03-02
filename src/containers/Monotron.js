@@ -121,6 +121,10 @@ const usePointers = (
   // Keep track of the pointer move events since the last tick. Maps pointerId to event
   const latestPointerMoves = useRef({});
 
+  // Keep track of the pointers for which we don't care about the targets when they move
+  // Maps poinerID to the initial target
+  const ignoreMoveTargetPointers = useRef({});
+
   // true if an animation frame was requested
   const ticking = useRef(false);
 
@@ -162,7 +166,10 @@ const usePointers = (
       Object.keys(latestPointerMoves.current).forEach(pointerId => {
         const event = latestPointerMoves.current[pointerId];
 
-        const target = getPointerEventTarget(event);
+        const existingTarget = ignoreMoveTargetPointers.current[pointerId];
+        const target = existingTarget
+          ? existingTarget
+          : getPointerEventTarget(event);
         onPointerMoveGlobal(target, event);
       });
 
@@ -174,6 +181,11 @@ const usePointers = (
     const pointerDownHandler = event => {
       const target = getPointerEventTarget(event);
 
+      if (target.type === "knob") {
+        const pointerId = event.pointerId;
+        ignoreMoveTargetPointers.current[pointerId] = target;
+      }
+
       onPointerDownGlobal(target, event);
     };
 
@@ -181,12 +193,15 @@ const usePointers = (
       // prevent mouse event to fire after touch event
       event.preventDefault();
 
+      const pointerId = event.pointerId;
+
       // make sure 'pointer move' for this pointer is not handled at the next tick
       // because the pointer is now up.
       if (ticking.current) {
-        const pointerId = event.pointerId;
         delete latestPointerMoves.current[pointerId];
       }
+
+      delete ignoreMoveTargetPointers.current[pointerId];
 
       onPointerUpGlobal(event);
     };
