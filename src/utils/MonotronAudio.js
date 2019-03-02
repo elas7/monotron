@@ -24,6 +24,13 @@ export default class MonotronAudio {
     this.context = context;
 
     this.initAudioNodes();
+
+    // We need to declare variables for the values of the OSC knobs because these
+    // don't map to the frequency of their oscillators. This is not needed for the
+    // other knobs because they map exactly to a certain value in a Web Audio Node.
+    this.knobOsc1Val = 0;
+    this.knobOsc2Val = 0;
+
     this.update(audioData);
   }
 
@@ -98,6 +105,7 @@ export default class MonotronAudio {
     }
 
     // Save new audio data
+    const prevAudioData = this.audioData ? this.audioData : null;
     this.audioData = audioData;
 
     // KNOBS
@@ -106,68 +114,59 @@ export default class MonotronAudio {
     // knobOsc1 has a range of +-16 semitones, knobOsc2 has a range of +-28 semitones.
     // The initial position for both is 0 semitones, meaning no variation.
 
-    // We need to declare variables for the values of the knobs because these
-    // don't map to the frequency of their oscillators. This is not needed for the
-    // other knobs because they map exactly to a certain value in a Web Audio Node.
-    this.knobOsc1Val = 0;
-    this.knobOsc2Val = 0;
-
     // Handle knobOsc1
     {
       const position = audioData.knobs.knobOsc1.position;
-      const oldRange = 1 - 0;
-      const newRange = 16 - -16; // 2 octaves = 16 semitones
-      this.knobOsc1Val = (position * newRange) / oldRange + -16;
-      if (audioData.keys.length !== 0) {
-        this.osc1.frequency.setValueAtTime(
-          this.getOsc1Freq(),
-          this.context.currentTime
-        );
-        this.osc2.frequency.setValueAtTime(
-          this.getOsc2Freq(),
-          this.context.currentTime
-        );
+      const oldPosition = prevAudioData
+        ? prevAudioData.knobs.knobOsc1.position
+        : null;
+      if (position !== oldPosition) {
+        const oldRange = 1 - 0;
+        const newRange = 16 - -16; // 2 octaves = 16 semitones
+        this.knobOsc1Val = (position * newRange) / oldRange + -16;
       }
     }
 
     // Handle knobOsc2
     {
       const position = audioData.knobs.knobOsc2.position;
-      const oldRange = 1 - 0;
-      const newRange = 28 - -28; // 3.5 octaves = 28 semitones
-      this.knobOsc2Val = (position * newRange) / oldRange + -28;
-      if (audioData.keys.length !== 0) {
-        this.osc2.frequency.setValueAtTime(
-          this.getOsc2Freq(),
-          this.context.currentTime
-        );
+      const oldPosition = prevAudioData
+        ? prevAudioData.knobs.knobOsc2.position
+        : null;
+      if (position !== oldPosition) {
+        const oldRange = 1 - 0;
+        const newRange = 28 - -28; // 3.5 octaves = 28 semitones
+        this.knobOsc2Val = (position * newRange) / oldRange + -28;
       }
     }
 
     // Handle knobXmod
-    this.osc2XmodMix.gain.value = audioData.knobs.knobXmod.position;
-    if (audioData.keys.length !== 0) {
-      this.osc1.frequency.setValueAtTime(
-        this.getOsc1Freq(),
-        this.context.currentTime
-      );
-      this.osc2.frequency.setValueAtTime(
-        this.getOsc2Freq(),
-        this.context.currentTime
-      );
+    {
+      const position = audioData.knobs.knobXmod.position;
+      const oldPosition = prevAudioData
+        ? prevAudioData.knobs.knobXmod.position
+        : null;
+      if (position !== oldPosition) {
+        this.osc2XmodMix.gain.value = position;
+      }
     }
 
     // Handle knobCutoff
     // The cutoff frequency goes from C#1 (semitone 25) to C9 (semitone 120)
     {
       const position = audioData.knobs.knobCutoff.position;
-      const oldRange = 1 - 0;
-      const newRange = 120 - 25;
-      const semitones = (position * newRange) / oldRange + 25;
-      this.lowpassFilter.frequency.setValueAtTime(
-        MonotronAudio.getFrequency(semitones),
-        this.context.currentTime
-      );
+      const oldPosition = prevAudioData
+        ? prevAudioData.knobs.knobCutoff.position
+        : null;
+      if (position !== oldPosition) {
+        const oldRange = 1 - 0;
+        const newRange = 120 - 25;
+        const semitones = (position * newRange) / oldRange + 25;
+        this.lowpassFilter.frequency.setValueAtTime(
+          MonotronAudio.getFrequency(semitones),
+          this.context.currentTime
+        );
+      }
     }
 
     // Handle knobPeak
@@ -175,33 +174,22 @@ export default class MonotronAudio {
     // range that loosely imitates the original device's sound.
     {
       const position = audioData.knobs.knobPeak.position;
-      const oldRange = 1 - 0;
-      const newRange = 1.5 - -1;
-      const value = 10 ** ((position * newRange) / oldRange + -1);
-      this.lowpassFilter.Q.setValueAtTime(value, this.context.currentTime);
-    }
-
-    // TOGGLES
-
-    // Handle toggleOsc2
-    // Toggle that activates or deactivates Osc2
-    {
-      const position = audioData.toggles.toggleOsc2.position;
-      if (!position) {
-        this.osc2Gain.gain.value = 0.0;
-      } else if (audioData.keys.length !== 0) {
-        this.osc2Gain.gain.value = 1.0;
+      const oldPosition = prevAudioData
+        ? prevAudioData.knobs.knobPeak.position
+        : null;
+      if (position !== oldPosition) {
+        const oldRange = 1 - 0;
+        const newRange = 1.5 - -1;
+        const value = 10 ** ((position * newRange) / oldRange + -1);
+        this.lowpassFilter.Q.setValueAtTime(value, this.context.currentTime);
       }
     }
 
-    // KEYBOARD
-    {
-      const keys = audioData.keys;
-      if (keys.length === 0) {
-        this.stop();
-      } else {
-        this.play();
-      }
+    const shouldPlay = audioData.keys.length !== 0;
+    if (shouldPlay) {
+      this.play();
+    } else {
+      this.stop();
     }
   }
 
