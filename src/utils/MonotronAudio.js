@@ -31,6 +31,8 @@ export default class MonotronAudio {
     this.knobOsc1Val = 0;
     this.knobOsc2Val = 0;
 
+    this.isPlaying = false;
+
     this.update(audioData);
   }
 
@@ -104,9 +106,22 @@ export default class MonotronAudio {
       this.context.resume();
     }
 
+    // Don't bother to update if the instrument is not playing
+    const isPlaying = audioData.keys.length !== 0;
+    const wasPlaying = this.isPlaying;
+    if (!isPlaying && !wasPlaying) {
+      return;
+    }
+
     // Save new audio data
     const prevAudioData = this.audioData ? this.audioData : null;
     this.audioData = audioData;
+
+    // Only update a node if the position changed from the last time
+    // the instrument was playing
+    const shouldUpdateNode = (position, oldPosition) => {
+      return position !== oldPosition;
+    };
 
     // KNOBS
 
@@ -120,7 +135,7 @@ export default class MonotronAudio {
       const oldPosition = prevAudioData
         ? prevAudioData.knobs.knobOsc1.position
         : null;
-      if (position !== oldPosition) {
+      if (shouldUpdateNode(position, oldPosition)) {
         const oldRange = 1 - 0;
         const newRange = 16 - -16; // 2 octaves = 16 semitones
         this.knobOsc1Val = (position * newRange) / oldRange + -16;
@@ -133,7 +148,7 @@ export default class MonotronAudio {
       const oldPosition = prevAudioData
         ? prevAudioData.knobs.knobOsc2.position
         : null;
-      if (position !== oldPosition) {
+      if (shouldUpdateNode(position, oldPosition)) {
         const oldRange = 1 - 0;
         const newRange = 28 - -28; // 3.5 octaves = 28 semitones
         this.knobOsc2Val = (position * newRange) / oldRange + -28;
@@ -146,7 +161,7 @@ export default class MonotronAudio {
       const oldPosition = prevAudioData
         ? prevAudioData.knobs.knobXmod.position
         : null;
-      if (position !== oldPosition) {
+      if (shouldUpdateNode(position, oldPosition)) {
         this.osc2XmodMix.gain.value = position;
       }
     }
@@ -158,7 +173,7 @@ export default class MonotronAudio {
       const oldPosition = prevAudioData
         ? prevAudioData.knobs.knobCutoff.position
         : null;
-      if (position !== oldPosition) {
+      if (shouldUpdateNode(position, oldPosition)) {
         const oldRange = 1 - 0;
         const newRange = 120 - 25;
         const semitones = (position * newRange) / oldRange + 25;
@@ -177,7 +192,7 @@ export default class MonotronAudio {
       const oldPosition = prevAudioData
         ? prevAudioData.knobs.knobPeak.position
         : null;
-      if (position !== oldPosition) {
+      if (shouldUpdateNode(position, oldPosition)) {
         const oldRange = 1 - 0;
         const newRange = 1.5 - -1;
         const value = 10 ** ((position * newRange) / oldRange + -1);
@@ -185,10 +200,11 @@ export default class MonotronAudio {
       }
     }
 
-    const shouldPlay = audioData.keys.length !== 0;
-    if (shouldPlay) {
+    if (isPlaying) {
+      this.isPlaying = true;
       this.play();
     } else {
+      this.isPlaying = false;
       this.stop();
     }
   }
