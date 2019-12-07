@@ -79,7 +79,7 @@ const useKeyboard = (onKeyDownGlobal, onKeyUpGlobal) => {
       window.removeEventListener("keydown", keyDownHandler);
       window.removeEventListener("keyup", keyUpHandler);
     };
-  }, []);
+  }, [onKeyDownGlobal, onKeyUpGlobal]);
 };
 
 /**
@@ -235,7 +235,7 @@ const usePointers = (
       window.removeEventListener("pointermove", pointerMoveHandler);
       window.removeEventListener("pointercancel", pointerUpHandler);
     };
-  }, []);
+  }, [onPointerDownGlobal, onPointerMoveGlobal, onPointerUpGlobal]);
 };
 
 /**

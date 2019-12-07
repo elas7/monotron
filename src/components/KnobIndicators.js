@@ -1,12 +1,12 @@
 // @flow
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useCallback } from "react";
 import KnobIndicatorContainer from "../containers/KnobIndicator";
 import type { KnobPosition } from "../types";
 
 function useKnobPositions(
   knobNames: string[]
 ): { [knobName: string]: KnobPosition } {
-  const getKnobPositions = () => {
+  const getKnobPositions = useCallback(() => {
     return knobNames.reduce((accumulator, knobName) => {
       let positions = null;
       const className = `POINTER_TARGET-knob-${knobName}`;
@@ -24,7 +24,7 @@ function useKnobPositions(
       accumulator[knobName] = positions;
       return accumulator;
     }, {});
-  };
+  }, [knobNames]);
 
   const [knobPositions, setKnobPositions] = useState({});
 
@@ -47,7 +47,7 @@ function useKnobPositions(
     return () => {
       window.removeEventListener("resize", handleNewPositions);
     };
-  }, []);
+  }, [getKnobPositions]);
 
   return knobPositions;
 }
