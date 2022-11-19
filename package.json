@@ -21,7 +21,7 @@
     "flow-bin": "^0.113.0",
     "gh-pages": "^2.1.1",
     "prettier": "^1.19.1",
-    "react-scripts": "3.3.0"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
